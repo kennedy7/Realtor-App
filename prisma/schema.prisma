@@ -18,6 +18,7 @@ model User {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  user_Type userType
 }
 
 model Home {
@@ -39,7 +40,17 @@ model Image {
   url String
 }
 
+model message {
+  id      Int    @id @default(autoincrement())
+  message String
+}
+
 enum PropertyType {
   RESIDENTIAL
   CONDO
+}
+
+enum userType {
+  BUYER
+  REALTOR
 }

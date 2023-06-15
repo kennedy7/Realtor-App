@@ -19,6 +19,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user_Type userType
+  homes     Home[]
 }
 
 model Home {
@@ -33,11 +34,21 @@ model Home {
   propertyType        PropertyType
   createdAt           DateTime     @default(now())
   updatedAt           DateTime     @updatedAt
+  //multiple images related to one home
+  image               Image[]
+  realtor_id          Int
+  //one realtor to many homes [many to one relationship]
+  realtor             User         @relation(fields: [realtor_id], references: [id])
 }
 
 model Image {
-  id  Int    @id @default(autoincrement())
-  url String
+  id        Int      @id @default(autoincrement())
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  home_id   Int
+  //many to one relationship 
+  home      Home     @relation(fields: [home_id], references: [id])
 }
 
 model message {

@@ -74,5 +74,5 @@ enum PropertyType {
 enum userType {
   BUYER
   REALTOR
-  ADMIN
+  ADMINN
 }

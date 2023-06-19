@@ -12,7 +12,7 @@ export class SignUpDto {
   name: string;
 
   @Matches(/^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/, {
-    message: 'Phone must be a valid phone number',
+    message: 'phone must be a valid phone number',
   })
   phone: string;
 

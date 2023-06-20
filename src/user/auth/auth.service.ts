@@ -11,7 +11,10 @@ interface SignUpParams {
 @Injectable()
 export class AuthService {
   constructor(private readonly primaService: PrismaService) {}
-  async signup({email}: SignUpDto) {
-    const userExists = this.primaService.user.findUnique({where: {email}})
+  async signup({ email }: SignUpDto) {
+    const userExists = await this.primaService.user.findUnique({
+      where: { email },
+    });
+    console.log({ userExists });
   }
 }

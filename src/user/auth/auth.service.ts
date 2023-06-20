@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { SignUpDto } from '../dtos/auth.dto';
 
@@ -11,10 +11,12 @@ interface SignUpParams {
 @Injectable()
 export class AuthService {
   constructor(private readonly primaService: PrismaService) {}
-  async signup({ email }: SignUpDto) {
+  async signup({ email }: SignUpParams) {
     const userExists = await this.primaService.user.findUnique({
       where: { email },
     });
-    console.log({ userExists });
+    if (userExists) {
+      throw new ConflictException();
+    }
   }
 }

@@ -31,7 +31,7 @@ export class AuthService {
         user_Type: userType.BUYER,
       },
     });
-    console.log(user);
+
     return user;
   }
 }

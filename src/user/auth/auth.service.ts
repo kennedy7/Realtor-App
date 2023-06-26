@@ -32,6 +32,13 @@ export class AuthService {
         user_Type: userType.BUYER,
       },
     });
+    const token = await jwt.sign(
+      {
+        name,
+        id: user.id,
+      },
+      process.env.JWT_SECRET,
+    );
 
     return user;
   }

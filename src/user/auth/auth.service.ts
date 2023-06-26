@@ -3,7 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { SignUpDto } from '../dtos/auth.dto';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import { User, userType } from '@prisma/client';
+import { userType } from '@prisma/client';
 
 interface SignUpParams {
   email: string;
@@ -14,7 +14,7 @@ interface SignUpParams {
 @Injectable()
 export class AuthService {
   constructor(private readonly primaService: PrismaService) {}
-  async signup({ email, password, name, phone }: SignUpDto): Promise<User> {
+  async signup({ email, password, name, phone }: SignUpDto) {
     const userExists = await this.primaService.user.findUnique({
       where: { email },
     });

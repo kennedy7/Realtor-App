@@ -1,6 +1,6 @@
-import { Injectable, ConflictException } from '@nestjs/common';
+import { Injectable, ConflictException, HttpException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { SignUpDto } from '../dtos/auth.dto';
+import { SignInDto, SignUpDto } from '../dtos/auth.dto';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { userType } from '@prisma/client';
@@ -45,5 +45,19 @@ export class AuthService {
     );
     return { Accesstoken };
   }
-  async signin({ signInDto: SignInDto }) {}
+  async signin(signInDto: SignInDto) {
+    const { email, password } = signInDto;
+    const user = await this.primaService.user.findUnique({
+      where: { email },
+    });
+    if (!user) {
+      throw new HttpException('Invalid credentials', 400);
+    }
+    const hashedPassword = user.password;
+    const isValidPassword = await bcrypt.compare(password, hashedPassword);
+
+    if (!isValidPassword) {
+      throw new HttpException('Invalid credentials', 400);
+    }
+  }
 }

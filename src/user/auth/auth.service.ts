@@ -5,21 +5,17 @@ import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { userType } from '@prisma/client';
 
-interface SignUpParams {
-  email: string;
-  phone: string;
-  name: string;
-  password: string;
-}
+// interface SignUpParams {
+//   email: string;
+//   phone: string;
+//   name: string;
+//   password: string;
+// }
 @Injectable()
 export class AuthService {
   constructor(private readonly primaService: PrismaService) {}
-  async signup({
-    email,
-    password,
-    name,
-    phone,
-  }: SignUpDto): Promise<{ Accesstoken: string }> {
+  async signup(signUpDto: SignUpDto): Promise<{ Accesstoken: string }> {
+    const { email, password, name, phone } = signUpDto;
     const userExists = await this.primaService.user.findUnique({
       where: { email },
     });
@@ -49,4 +45,5 @@ export class AuthService {
     );
     return { Accesstoken };
   }
+  async signin({ signInDto: SignInDto }) {}
 }

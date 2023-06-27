@@ -5,13 +5,10 @@ import * as dotenv from 'dotenv';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { User } from '@prisma/client';
 dotenv.config();
-// import * as config from 'config';
 
-interface JwtPayload {
+export interface JwtPayload {
   email: string;
 }
-
-// const jwtConfig = config.get('jwt');
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {

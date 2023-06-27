@@ -40,7 +40,7 @@ export class AuthService {
       },
       process.env.JWT_SECRET,
       {
-        expiresIn: 3600000,
+        expiresIn: process.env.EXPIRESIN,
       },
     );
     return { Accesstoken };
@@ -59,5 +59,6 @@ export class AuthService {
     if (!isValidPassword) {
       throw new HttpException('Invalid credentials', 400);
     }
+    return {};
   }
 }

@@ -4,6 +4,8 @@ import { SignInDto, SignUpDto } from '../dtos/auth.dto';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { userType } from '@prisma/client';
+import { JwtPayload } from './jwt-strategy';
+import { JwtService } from '@nestjs/jwt/dist';
 
 // interface SignUpParams {
 //   email: string;
@@ -13,7 +15,10 @@ import { userType } from '@prisma/client';
 // }
 @Injectable()
 export class AuthService {
-  constructor(private readonly primaService: PrismaService) {}
+  constructor(
+    private readonly primaService: PrismaService,
+    private readonly jwtService: JwtService,
+  ) {}
   async signup(signUpDto: SignUpDto): Promise<{ Accesstoken: string }> {
     const { email, password, name, phone } = signUpDto;
     const userExists = await this.primaService.user.findUnique({
@@ -45,7 +50,7 @@ export class AuthService {
     );
     return { Accesstoken };
   }
-  async signin(signInDto: SignInDto) {
+  async signin(signInDto: SignInDto): Promise<{ AccessToken: string }> {
     const { email, password } = signInDto;
     const user = await this.primaService.user.findUnique({
       where: { email },
@@ -59,6 +64,8 @@ export class AuthService {
     if (!isValidPassword) {
       throw new HttpException('Invalid credentials', 400);
     }
-    return {};
+    const payload: JwtPayload = { email };
+    const AccessToken = await this.jwtService.sign(payload);
+    return { AccessToken };
   }
 }

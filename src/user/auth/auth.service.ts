@@ -38,8 +38,10 @@ export class AuthService {
         id: user.id,
       },
       process.env.JWT_SECRET,
+      {
+        expiresIn: 3600000,
+      },
     );
-
-    return user;
+    return token;
   }
 }

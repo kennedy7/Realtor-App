@@ -32,7 +32,7 @@ export class AuthService {
         user_Type: userType.BUYER,
       },
     });
-    const token = await jwt.sign(
+    const Accesstoken = await jwt.sign(
       {
         name,
         id: user.id,
@@ -42,6 +42,6 @@ export class AuthService {
         expiresIn: 3600000,
       },
     );
-    return token;
+    return Accesstoken;
   }
 }

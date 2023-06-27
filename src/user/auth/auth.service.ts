@@ -14,7 +14,12 @@ interface SignUpParams {
 @Injectable()
 export class AuthService {
   constructor(private readonly primaService: PrismaService) {}
-  async signup({ email, password, name, phone }: SignUpDto) {
+  async signup({
+    email,
+    password,
+    name,
+    phone,
+  }: SignUpDto): Promise<{ Accesstoken: string }> {
     const userExists = await this.primaService.user.findUnique({
       where: { email },
     });
@@ -42,6 +47,6 @@ export class AuthService {
         expiresIn: 3600000,
       },
     );
-    return Accesstoken;
+    return { Accesstoken };
   }
 }

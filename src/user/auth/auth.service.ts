@@ -68,4 +68,9 @@ export class AuthService {
     const AccessToken = await this.jwtService.sign(payload);
     return { AccessToken };
   }
+  generateProductKey(email: string, usertype: userType) {
+    const string = `${email}-${userType}-${process.env.PRODUCT_SECRET_KEY}`;
+    const key = bcrypt.hash(string, 10);
+    return key;
+  }
 }

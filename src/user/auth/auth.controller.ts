@@ -16,6 +16,6 @@ export class AuthController {
   }
   @Post('key')
   generateProductKey(email: string, usertype: userType) {
-    return this.generateProductKey(email, usertype);
+    return this.authService.generateProductKey(email, usertype);
   }
 }

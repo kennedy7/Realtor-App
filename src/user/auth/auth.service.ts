@@ -1,6 +1,6 @@
 import { Injectable, ConflictException, HttpException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { SignInDto, SignUpDto } from '../dtos/auth.dto';
+import { GenerateProductKeyDto, SignInDto, SignUpDto } from '../dtos/auth.dto';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { userType } from '@prisma/client';
@@ -68,7 +68,8 @@ export class AuthService {
     const AccessToken = await this.jwtService.sign(payload);
     return { AccessToken };
   }
-  generateProductKey(email: string, usertype: userType) {
+  generateProductKey(generateProductKeyDto: GenerateProductKeyDto) {
+    const { email, usertype } = generateProductKeyDto;
     const string = `${email}-${usertype}-${process.env.PRODUCT_SECRET_KEY}`;
     const key = bcrypt.hash(string, 10);
     return key;

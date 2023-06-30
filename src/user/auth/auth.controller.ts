@@ -9,6 +9,7 @@ import {
 import { userType } from '@prisma/client';
 import { GenerateProductKeyDto, SignInDto, SignUpDto } from '../dtos/auth.dto';
 import { AuthService } from './auth.service';
+import * as bcrypt from 'bcrypt';
 
 @Controller('auth')
 export class AuthController {
@@ -20,6 +21,14 @@ export class AuthController {
   ) {
     if (usertype !== userType.BUYER) {
       if (!signUpDto.productKey) {
+        throw new UnauthorizedException();
+      }
+      const validateProductKey = `${signUpDto.email}-${userType}-${process.env.PRODUC_SECRET_KEY}`;
+      const isValidProductKey = bcrypt.compare(
+        validateProductKey,
+        signUpDto.productKey,
+      );
+      if (!isValidProductKey) {
         throw new UnauthorizedException();
       }
     }

@@ -1,13 +1,28 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Param,
+  Post,
+  ParseEnumPipe,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { userType } from '@prisma/client';
-import { SignInDto, SignUpDto } from '../dtos/auth.dto';
+import { GenerateProductKeyDto, SignInDto, SignUpDto } from '../dtos/auth.dto';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-  @Post('signup')
-  signup(@Body() signUpDto: SignUpDto) {
+  @Post('signup/:userType')
+  signup(
+    @Body() signUpDto: SignUpDto,
+    @Param('usertype', new ParseEnumPipe(userType)) usertype: userType,
+  ) {
+    if (usertype !== userType.BUYER) {
+      if (!signUpDto.productKey) {
+        throw new UnauthorizedException();
+      }
+    }
     return this.authService.signup(signUpDto);
   }
   @Post('signin')
@@ -15,7 +30,7 @@ export class AuthController {
     return this.authService.signin(signInDto);
   }
   @Post('key')
-  generateProductKey(email: string, usertype: userType) {
-    return this.authService.generateProductKey(email, usertype);
+  generateProductKey(@Body() generateProductKeyDto: GenerateProductKeyDto) {
+    return this.authService.generateProductKey(generateProductKeyDto);
   }
 }

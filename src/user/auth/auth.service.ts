@@ -19,7 +19,10 @@ export class AuthService {
     private readonly primaService: PrismaService,
     private readonly jwtService: JwtService,
   ) {}
-  async signup(signUpDto: SignUpDto): Promise<{ Accesstoken: string }> {
+  async signup(
+    signUpDto: SignUpDto,
+    usertype: userType,
+  ): Promise<{ Accesstoken: string }> {
     const { email, password, name, phone } = signUpDto;
     const userExists = await this.primaService.user.findUnique({
       where: { email },
@@ -35,7 +38,7 @@ export class AuthService {
         name,
         phone,
         password: hashedPassword,
-        user_Type: userType.BUYER,
+        user_Type: usertype,
       },
     });
     const Accesstoken = await jwt.sign(

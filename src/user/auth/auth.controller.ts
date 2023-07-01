@@ -15,7 +15,7 @@ import * as bcrypt from 'bcrypt';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @Post('signup/:usertype')
-  signup(
+  async signup(
     @Body() signUpDto: SignUpDto,
     @Param('usertype', new ParseEnumPipe(userType)) usertype: userType,
   ) {
@@ -24,7 +24,7 @@ export class AuthController {
         throw new UnauthorizedException();
       }
       const validateProductKey = `${signUpDto.email}-${usertype}-${process.env.PRODUCT_SECRET_KEY}`;
-      const isValidProductKey = bcrypt.compare(
+      const isValidProductKey = await bcrypt.compare(
         validateProductKey,
         signUpDto.productKey,
       );
@@ -32,7 +32,7 @@ export class AuthController {
         throw new UnauthorizedException();
       }
     }
-    return this.authService.signup(signUpDto);
+    return this.authService.signup(signUpDto, usertype);
   }
   @Post('signin')
   signin(@Body() signInDto: SignInDto) {

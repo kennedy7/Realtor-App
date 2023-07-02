@@ -1,15 +1,17 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateHomeDto } from './dto/create-home.dto';
 import { UpdateHomeDto } from './dto/update-home.dto';
 
 @Injectable()
 export class HomeService {
+  constructor(private readonly prismaService: PrismaService) {}
   createHome(createHomeDto: CreateHomeDto) {
     return 'This action adds a new home';
   }
 
-  getHomes() {
-    return `This action returns all home`;
+  async getHomes() {
+    return await this.prismaService.home.findMany();
   }
 
   getHome(id: number) {

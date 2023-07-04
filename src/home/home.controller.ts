@@ -17,7 +17,7 @@ export class HomeController {
 
   @Post()
   createHome(@Body() createHomeDto: CreateHomeDto) {
-    return this.homeService.createHome(createHomeDtoo);
+    return this.homeService.createHome(createHomeDto);
   }
 
   @Get()

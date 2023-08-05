@@ -31,7 +31,14 @@ export class HomeResponseDto {
     return this.listed_date;
   }
   price: number;
+
+  @Exclude()
   land_size: number;
+
+  @Expose({ name: 'landSize' })
+  landSize() {
+    return this.land_size;
+  }
   propertyType: PropertyType;
   createdAt: Date;
   updatedAt: Date;

@@ -22,7 +22,14 @@ export class HomeResponseDto {
     return this.number_of_bathrooms;
   }
   city: string;
+
+  @Exclude()
   listed_date: Date;
+
+  @Expose({ name: 'ListedDate' })
+  ListedDate() {
+    return this.listed_date;
+  }
   price: number;
   land_size: number;
   propertyType: PropertyType;

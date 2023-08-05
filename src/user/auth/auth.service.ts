@@ -16,7 +16,7 @@ import { JwtService } from '@nestjs/jwt/dist';
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly primaService: PrismaService,
+    private readonly prismaService: PrismaService,
     private readonly jwtService: JwtService,
   ) {}
   async signup(
@@ -24,7 +24,7 @@ export class AuthService {
     usertype: userType,
   ): Promise<{ Accesstoken: string }> {
     const { email, password, name, phone } = signUpDto;
-    const userExists = await this.primaService.user.findUnique({
+    const userExists = await this.prismaService.user.findUnique({
       where: { email },
     });
     if (userExists) {
@@ -32,7 +32,7 @@ export class AuthService {
     }
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await this.primaService.user.create({
+    const user = await this.prismaService.user.create({
       data: {
         email,
         name,
@@ -55,7 +55,7 @@ export class AuthService {
   }
   async signin(signInDto: SignInDto): Promise<{ AccessToken: string }> {
     const { email, password } = signInDto;
-    const user = await this.primaService.user.findUnique({
+    const user = await this.prismaService.user.findUnique({
       where: { email },
     });
     if (!user) {

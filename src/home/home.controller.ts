@@ -12,7 +12,7 @@ import { CreateHomeDto } from './dto/home.dto';
 import { UpdateHomeDto } from './dto/update-home.dto';
 
 @Controller('home')
-export class HomeControllerr {
+export class HomeController {
   constructor(private readonly homeService: HomeService) {}
 
   @Post()

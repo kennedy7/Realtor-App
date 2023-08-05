@@ -26,8 +26,8 @@ export class HomeResponseDto {
   @Exclude()
   listed_date: Date;
 
-  @Expose({ name: 'ListedDate' })
-  ListedDate() {
+  @Expose({ name: 'listedDate' })
+  listedDate() {
     return this.listed_date;
   }
   price: number;

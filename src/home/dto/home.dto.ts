@@ -40,7 +40,15 @@ export class HomeResponseDto {
     return this.land_size;
   }
   propertyType: PropertyType;
+
+  @Exclude()
   createdAt: Date;
+  @Exclude()
   updatedAt: Date;
+  @Exclude()
   realtor_id: number;
+
+  constructor(partial: Partial<HomeResponseDto>) {
+    Object.assign(this, partial);
+  }
 }

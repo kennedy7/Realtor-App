@@ -8,7 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { HomeService } from './home.service';
-import { CreateHomeDto } from './dto/home.dto';
+import { CreateHomeDto, HomeResponseDto } from './dto/home.dto';
 import { UpdateHomeDto } from './dto/update-home.dto';
 
 @Controller('home')
@@ -21,7 +21,7 @@ export class HomeController {
   }
 
   @Get()
-  getHomes() {
+  getHomes(): Promise<HomeResponseDto[]> {
     return this.homeService.getHomes();
   }
 

@@ -11,7 +11,23 @@ export class HomeService {
   }
 
   async getHomes(): Promise<HomeResponseDto[]> {
-    const homes = await this.prismaService.home.findMany();
+    const homes = await this.prismaService.home.findMany({
+      select: {
+        id: true,
+        address: true,
+        city: true,
+        price: true,
+        propertyType: true,
+        number_of_bathrooms: true,
+        number_of_bedrooms: true,
+        image: {
+          select: {
+            url: true,
+          },
+          take: 1,
+        },
+      },
+    });
     return homes.map((home) => new HomeResponseDto(home));
   }
 

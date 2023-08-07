@@ -28,7 +28,9 @@ export class HomeService {
         },
       },
     });
-    return homes.map((home) => new HomeResponseDto(home));
+    return homes.map(
+      (home) => new HomeResponseDto({ ...home, image: home.image[0].url }),
+    );
   }
 
   getHome(id: number) {

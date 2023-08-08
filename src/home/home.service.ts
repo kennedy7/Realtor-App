@@ -28,9 +28,11 @@ export class HomeService {
         },
       },
     });
-    return homes.map(
-      (home) => new HomeResponseDto({ ...home, image: home.image[0].url }),
-    );
+    return homes.map((home) => {
+      const fetchHomes = { ...home, image: home.image[0].url };
+      delete fetchHomes.image;
+      return new HomeResponseDto(fetchHomes);
+    });
   }
 
   getHome(id: number) {

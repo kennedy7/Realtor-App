@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { HomeService } from './home.service';
 import { CreateHomeDto, HomeResponseDto } from './dto/home.dto';

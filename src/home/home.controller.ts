@@ -22,7 +22,11 @@ export class HomeController {
   }
 
   @Get()
-  getHomes(): Promise<HomeResponseDto[]> {
+  getHomes(
+    @Query('city') city?: string,
+    @Query('minPrice') minPrice?: string,
+    @Query('maxPrice') maxPrice?: string,
+  ): Promise<HomeResponseDto[]> {
     return this.homeService.getHomes();
   }
 

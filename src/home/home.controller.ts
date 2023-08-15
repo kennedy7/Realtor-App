@@ -11,6 +11,7 @@ import {
 import { HomeService } from './home.service';
 import { CreateHomeDto, HomeResponseDto } from './dto/home.dto';
 import { UpdateHomeDto } from './dto/update-home.dto';
+import { PropertyType } from '@prisma/client';
 
 @Controller('home')
 export class HomeController {
@@ -26,6 +27,7 @@ export class HomeController {
     @Query('city') city?: string,
     @Query('minPrice') minPrice?: string,
     @Query('maxPrice') maxPrice?: string,
+    @Query('propertyType') propertyType?: PropertyType,
   ): Promise<HomeResponseDto[]> {
     return this.homeService.getHomes();
   }

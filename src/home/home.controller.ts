@@ -32,7 +32,7 @@ export class HomeController {
 
     const price = minPrice || maxPrice ? {
       ...(minPrice && {gte: parseFloat(minPrice)}),
-      ...(maxPrice && {gte: parseFloat(maxPrice)})
+      ...(maxPrice && {lte: parseFloat(maxPrice)})
     }
     return this.homeService.getHomes();
   }

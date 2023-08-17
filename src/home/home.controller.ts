@@ -29,6 +29,11 @@ export class HomeController {
     @Query('maxPrice') maxPrice?: string,
     @Query('propertyType') propertyType?: PropertyType,
   ): Promise<HomeResponseDto[]> {
+
+    const price = minPrice || maxPrice ? {
+      ...(minPrice && {gte: parseFloat(minPrice)}),
+      ...(maxPrice && {gte: parseFloat(maxPrice)})
+    }
     return this.homeService.getHomes();
   }
 

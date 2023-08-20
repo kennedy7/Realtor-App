@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateHomeDto, HomeResponseDto } from './dto/home.dto';
 import { UpdateHomeDto } from './dto/update-home.dto';
+import { PropertyType } from '@prisma/client';
 
 interface GetHomesParam {
   city?: string;
@@ -9,6 +10,7 @@ interface GetHomesParam {
     gte?: number;
     lte?: number;
   };
+  propertyType: PropertyType;
 }
 @Injectable()
 export class HomeService {

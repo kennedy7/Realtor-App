@@ -3,6 +3,13 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateHomeDto, HomeResponseDto } from './dto/home.dto';
 import { UpdateHomeDto } from './dto/update-home.dto';
 
+interface GetHomesParam {
+  city?: string;
+  price?: {
+    gte?: number;
+    lte?: number;
+  };
+}
 @Injectable()
 export class HomeService {
   constructor(private readonly prismaService: PrismaService) {}
@@ -27,6 +34,7 @@ export class HomeService {
           take: 1,
         },
       },
+      where: filter,
     });
     return homes.map((home) => {
       const fetchHomes = { ...home, image: home.image[0].url };

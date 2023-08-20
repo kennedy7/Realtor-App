@@ -9,6 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { HomeService } from './home.service';
+import { ParseIntPipe } from '@nestjs/common/pipes';
 import { CreateHomeDto, HomeResponseDto } from './dto/home.dto';
 import { UpdateHomeDto } from './dto/update-home.dto';
 import { PropertyType } from '@prisma/client';
@@ -46,8 +47,8 @@ export class HomeController {
   }
 
   @Get(':id')
-  getHome(@Param('id') id: string) {
-    return this.homeService.getHome(+id);
+  getHome(@Param('id', ParseIntPipe) id: number) {
+    return this.homeService.getHome();
   }
 
   @Patch(':id')

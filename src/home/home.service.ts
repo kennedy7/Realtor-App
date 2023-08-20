@@ -50,8 +50,12 @@ export class HomeService {
     });
   }
 
-  getHome(id: number) {
-    return `This action returns a #${id} home`;
+  async getHomeById(id: number) {
+    const home = await this.prismaService.home.findFirst(id);
+    if (!home) {
+      throw new NotFoundException();
+    }
+    return home;
   }
 
   updateHome(id: number, updateHomeDto: UpdateHomeDto) {

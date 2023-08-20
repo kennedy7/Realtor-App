@@ -19,7 +19,7 @@ export class HomeService {
     return 'This action adds a new home';
   }
 
-  async getHomes(): Promise<HomeResponseDto[]> {
+  async getHomes(filter: GetHomesParam): Promise<HomeResponseDto[]> {
     const homes = await this.prismaService.home.findMany({
       select: {
         id: true,

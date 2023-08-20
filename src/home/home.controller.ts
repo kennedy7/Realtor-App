@@ -47,8 +47,8 @@ export class HomeController {
   }
 
   @Get(':id')
-  getHome(@Param('id', ParseIntPipe) id: number) {
-    return this.homeService.getHome();
+  getHomeById(@Param('id', ParseIntPipe) id: number) {
+    return this.homeService.getHomeById(id);
   }
 
   @Patch(':id')

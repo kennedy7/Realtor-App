@@ -39,9 +39,10 @@ export class HomeController {
 
     const filters = {
       ...(city && { city }),
+      ...(price && { price }),
       ...(propertyType && { propertyType }),
     };
-    return this.homeService.getHomes();
+    return this.homeService.getHomes(filters);
   }
 
   @Get(':id')

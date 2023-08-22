@@ -49,7 +49,9 @@ export class HomeService {
   }
 
   async getHomeById(id: number) {
-    const home = await this.prismaService.home.findFirst(id);
+    const home = await this.prismaService.home.findFirst({
+      where: { id },
+    });
     if (!home) {
       throw new NotFoundException();
     }

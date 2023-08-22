@@ -18,8 +18,16 @@ export class CreateHomeDto {
   @IsPositive()
   numberOfBedrooms: number;
 
+  @IsString()
+  @IsNotEmpty()
   city: string;
+
+  @IsNumber()
+  @IsPositive()
   price: number;
+
+  @IsNumber()
+  @IsPositive()
   land_size: number;
   propertyType: PropertyType;
   image: image;

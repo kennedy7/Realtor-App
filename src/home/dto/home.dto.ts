@@ -1,6 +1,25 @@
 import { PropertyType } from '@prisma/client';
 import { Exclude, Expose } from 'class-transformer';
-export class CreateHomeDto {}
+import { IsNotEmpty, IsNumber, IsPositive, IsString } from 'class-validator';
+
+class image {
+  url: string;
+}
+export class CreateHomeDto {
+  @IsString()
+  @IsNotEmpty()
+  address: string;
+
+  @IsNumber()
+  @IsPositive()
+  numberOfBathrooms: number;
+  numberOfBedrooms: number;
+  city: string;
+  price: number;
+  land_size: number;
+  propertyType: PropertyType;
+  image: image;
+}
 
 export class HomeResponseDto {
   id: number;

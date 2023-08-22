@@ -13,7 +13,11 @@ export class CreateHomeDto {
   @IsNumber()
   @IsPositive()
   numberOfBathrooms: number;
+
+  @IsNumber()
+  @IsPositive()
   numberOfBedrooms: number;
+
   city: string;
   price: number;
   land_size: number;

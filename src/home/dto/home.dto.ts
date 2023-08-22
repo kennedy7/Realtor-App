@@ -36,7 +36,7 @@ export class CreateHomeDto {
 
   @IsNumber()
   @IsPositive()
-  land_size: number;
+  landSize: number;
 
   @IsEnum(PropertyType)
   propertyType: PropertyType;

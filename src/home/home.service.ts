@@ -55,7 +55,7 @@ export class HomeService {
     if (!home) {
       throw new NotFoundException();
     }
-    return home;
+    return new HomeResponseDto(home);
   }
 
   updateHome(id: number, updateHomeDto: UpdateHomeDto) {

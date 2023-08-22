@@ -55,6 +55,7 @@ export class HomeController {
   updateHome(@Param('id') id: string, @Body() updateHomeDto: UpdateHomeDto) {
     return this.homeService.updateHome(+id, updateHomeDto);
   }
+  
 
   @Delete(':id')
   deleteHome(@Param('id') id: string) {

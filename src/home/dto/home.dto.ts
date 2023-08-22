@@ -44,7 +44,7 @@ export class CreateHomeDto {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => Image)
-  image: Image;
+  image: Image[];
 }
 
 export class HomeResponseDto {

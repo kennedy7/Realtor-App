@@ -11,17 +11,12 @@ import {
 import { HomeService } from './home.service';
 import { ParseIntPipe } from '@nestjs/common/pipes';
 import { CreateHomeDto, HomeResponseDto } from './dto/home.dto';
-import { UpdateHomeDto } from './dto/update-home.dto';
+import { UpdateHomeDto } from './dto/home.dto';
 import { PropertyType } from '@prisma/client';
 
 @Controller('home')
 export class HomeController {
   constructor(private readonly homeService: HomeService) {}
-
-  @Post()
-  createHome(@Body() createHomeDto: CreateHomeDto) {
-    return this.homeService.createHome(createHomeDto);
-  }
 
   @Get()
   getHomes(
@@ -51,11 +46,15 @@ export class HomeController {
     return this.homeService.getHomeById(id);
   }
 
+  @Post()
+  createHome(@Body() createHomeDto: CreateHomeDto) {
+    return this.homeService.createHome(createHomeDto);
+  }
+
   @Patch(':id')
   updateHome(@Param('id') id: string, @Body() updateHomeDto: UpdateHomeDto) {
     return this.homeService.updateHome(+id, updateHomeDto);
   }
-  
 
   @Delete(':id')
   deleteHome(@Param('id') id: string) {

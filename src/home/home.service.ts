@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateHomeDto, HomeResponseDto } from './dto/home.dto';
-import { UpdateHomeDto } from './dto/update-home.dto';
+import { UpdateHomeDto } from './dto/home.dto';
 import { PropertyType } from '@prisma/client';
 import { NotFoundError } from 'rxjs';
 

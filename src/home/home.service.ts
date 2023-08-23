@@ -79,7 +79,7 @@ export class HomeService {
         price,
         land_size: landSize,
         propertyType,
-        realtor_id: 6,
+        realtor_id: 12,
       },
     });
 

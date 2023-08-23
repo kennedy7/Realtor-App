@@ -11,6 +11,8 @@ import {
 } from 'class-validator';
 
 class Image {
+  @IsString()
+  @IsNotEmpty()
   url: string;
 }
 export class CreateHomeDto {

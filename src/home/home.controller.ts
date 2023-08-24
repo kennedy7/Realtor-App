@@ -52,8 +52,11 @@ export class HomeController {
   }
 
   @Patch(':id')
-  updateHome(@Param('id') id: string, @Body() updateHomeDto: UpdateHomeDto) {
-    return this.homeService.updateHome(+id, updateHomeDto);
+  updateHomeById(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateHomeDto: UpdateHomeDto,
+  ) {
+    return this.homeService.updateHomeById(id, updateHomeDto);
   }
 
   @Delete(':id')

@@ -92,7 +92,7 @@ export class HomeService {
     return new HomeResponseDto(home);
   }
 
-  async updateHomeById(id: number, updateHomeDto: UpdateHomeDto) {
+  async updateHomeById(id: number, data: UpdateHomeDto) {
     const home = await this.prismaService.home.findUnique({
       where: {
         id,
@@ -103,8 +103,9 @@ export class HomeService {
       where: {
         id,
       },
-      updateHomeDto,
+      data,
     });
+    return new HomeResponseDto(updatedHome);
   }
 
   deleteHome(id: number) {

@@ -105,7 +105,7 @@ export class HomeService {
       },
       data,
     });
-    return new HomeResponseDto();
+    return new HomeResponseDto(updatedHome);
   }
 
   deleteHome(id: number) {

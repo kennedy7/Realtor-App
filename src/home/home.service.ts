@@ -58,7 +58,7 @@ export class HomeService {
     return new HomeResponseDto(home);
   }
 
-  async createHome(createHomeDto: CreateHomeDto) {
+  async createHome(createHomeDto: CreateHomeDto, userId: number) {
     const {
       address,
       numberOfBedrooms,
@@ -79,7 +79,7 @@ export class HomeService {
         price,
         land_size: landSize,
         propertyType,
-        realtor_id: 12,
+        realtor_id: userId,
       },
     });
 

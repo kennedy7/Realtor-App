@@ -12,7 +12,7 @@ import { HomeService } from './home.service';
 import { ParseIntPipe } from '@nestjs/common/pipes';
 import { CreateHomeDto, HomeResponseDto } from './dto/home.dto';
 import { UpdateHomeDto } from './dto/home.dto';
-import { PropertyType } from '@prisma/client';
+import { PropertyType, User } from '@prisma/client';
 import { GetUser } from 'src/user/decorators/user.decorator';
 
 @Controller('home')
@@ -48,8 +48,8 @@ export class HomeController {
   }
 
   @Post()
-  createHome(@Body() createHomeDto: CreateHomeDto, @GetUser() user) {
-    return this.homeService.createHome(createHomeDto);
+  createHome(@Body() createHomeDto: CreateHomeDto, @GetUser() user: User) {
+    return this.homeService.createHome(createHomeDto, user.id);
   }
 
   @Patch(':id')

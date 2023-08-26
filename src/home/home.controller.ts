@@ -13,6 +13,7 @@ import { ParseIntPipe } from '@nestjs/common/pipes';
 import { CreateHomeDto, HomeResponseDto } from './dto/home.dto';
 import { UpdateHomeDto } from './dto/home.dto';
 import { PropertyType } from '@prisma/client';
+import { GetUser } from 'src/user/decorators/user.decorator';
 
 @Controller('home')
 export class HomeController {
@@ -47,7 +48,7 @@ export class HomeController {
   }
 
   @Post()
-  createHome(@Body() createHomeDto: CreateHomeDto) {
+  createHome(@Body() createHomeDto: CreateHomeDto, @GetUser() user) {
     return this.homeService.createHome(createHomeDto);
   }
 

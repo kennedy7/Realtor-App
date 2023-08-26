@@ -109,6 +109,7 @@ export class HomeService {
   }
 
   async deleteHomeById(id: number) {
+    await this.prismaService.image.deleteMany({ where: { home_id: id } });
     const deleteHome = await this.prismaService.home.delete({ where: { id } });
   }
 }

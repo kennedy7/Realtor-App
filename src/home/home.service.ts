@@ -109,6 +109,6 @@ export class HomeService {
   }
 
   async deleteHomeById(id: number) {
-    const deleteHome = await this.prismaService.home.delete(id);
+    const deleteHome = await this.prismaService.home.delete({ where: { id } });
   }
 }

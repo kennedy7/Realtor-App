@@ -108,7 +108,7 @@ export class HomeService {
     return new HomeResponseDto(updatedHome);
   }
 
-  deleteHome(id: number) {
-    return `This action removes a #${id} home`;
+  async deleteHomeById(id: number) {
+    const deleteHome = await this.prismaService.home.delete(id);
   }
 }

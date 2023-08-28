@@ -73,8 +73,8 @@ export class AuthService {
     return { AccessToken };
   }
   generateProductKey(generateProductKeyDto: GenerateProductKeyDto) {
-    const { email, usertype } = generateProductKeyDto;
-    const string = `${email}-${usertype}-${process.env.PRODUCT_SECRET_KEY}`;
+    const { email, userType } = generateProductKeyDto;
+    const string = `${email}-${userType}-${process.env.PRODUCT_SECRET_KEY}`;
     const key = bcrypt.hash(string, 10);
     return key;
   }

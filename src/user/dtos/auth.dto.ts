@@ -45,5 +45,5 @@ export class GenerateProductKeyDto {
   email: string;
 
   @IsEnum(userType)
-  usertype: userType;
+  userType: userType;
 }

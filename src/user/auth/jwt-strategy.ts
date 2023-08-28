@@ -7,7 +7,9 @@ import { User } from '@prisma/client';
 dotenv.config();
 
 export interface JwtPayload {
-  email: string;
+  // email: string;
+  id: number;
+  name: string;
 }
 
 @Injectable()
@@ -20,9 +22,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: JwtPayload): Promise<User> {
-    const { email } = payload;
+    const { id } = payload;
     const user = await this.prismaService.user.findUnique({
-      where: { email },
+      where: { id },
     });
     if (!user) {
       throw new UnauthorizedException();

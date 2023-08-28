@@ -67,7 +67,8 @@ export class AuthService {
     if (!isValidPassword) {
       throw new HttpException('Invalid credentials', 400);
     }
-    const payload: JwtPayload = { email };
+    const { id, name } = user;
+    const payload: JwtPayload = { id, name };
     const AccessToken = await this.jwtService.sign(payload);
     return { AccessToken };
   }

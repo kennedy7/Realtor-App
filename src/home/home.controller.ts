@@ -69,7 +69,15 @@ export class HomeController {
   }
 
   @Delete(':id')
-  deleteHome(@Param('id', ParseIntPipe) id: number, @GetUser() user: User) {
+  async deleteHome(
+    @Param('id', ParseIntPipe) id: number,
+    @GetUser() user: User,
+  ) {
+    const realtor = await this.homeService.getRealtorByHomeId(id);
+
+    if (realtor.id !== user.id) {
+      throw new UnauthorizedException();
+    }
     return this.homeService.deleteHomeById(id);
   }
 }

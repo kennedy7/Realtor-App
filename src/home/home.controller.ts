@@ -1,3 +1,4 @@
+import { UnauthorizedException } from '@nestjs/common';
 import {
   Controller,
   Get,
@@ -53,11 +54,17 @@ export class HomeController {
   }
 
   @Patch(':id')
-  updateHomeById(
+  async updateHomeById(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateHomeDto: UpdateHomeDto,
     @GetUser() user: User,
   ) {
+    const realtor = await this.homeService.getRealtorByHomeId(id);
+
+    if (realtor.id !== user.id) {
+      throw new UnauthorizedException();
+    }
+
     return this.homeService.updateHomeById(id, updateHomeDto);
   }
 

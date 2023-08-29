@@ -113,12 +113,13 @@ export class HomeService {
     const deleteHome = await this.prismaService.home.delete({ where: { id } });
   }
 
-  async getRealtorByHomeId(id: number, realtorId: number) {
+  async getRealtorByHomeId(id: number) {
     const home = await this.prismaService.home.findUnique({
       where: { id },
     });
     if (!home) {
       throw new NotFoundException();
     }
+    return home.realtor_id;
   }
 }

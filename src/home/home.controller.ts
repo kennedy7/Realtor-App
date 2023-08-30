@@ -74,7 +74,6 @@ export class HomeController {
     @GetUser() user: User,
   ) {
     const realtor = await this.homeService.getRealtorByHomeId(id);
-
     if (realtor.id !== user.id) {
       throw new UnauthorizedException();
     }

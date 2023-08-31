@@ -8,6 +8,7 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { HomeService } from './home.service';
 import { ParseIntPipe } from '@nestjs/common/pipes';

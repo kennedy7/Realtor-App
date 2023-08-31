@@ -79,4 +79,9 @@ export class HomeController {
     }
     return this.homeService.deleteHomeById(id);
   }
+
+  @Get('/me')
+  async getMe(@GetUser() user: User) {
+    return user;
+  }
 }

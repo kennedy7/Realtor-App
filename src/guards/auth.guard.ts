@@ -1,4 +1,5 @@
 import { CanActivate, ExecutionContext } from '@nestjs/common';
+import * as jwt from 'jsonwebtoken';
 
 //allows us access metadata
 import { Reflector } from '@nestjs/core';

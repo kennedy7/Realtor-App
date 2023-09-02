@@ -15,6 +15,11 @@ export class AuthGuard implements CanActivate {
     if (roles.length) {
       const request = context.switchToHttp().getRequest();
       const token = request.headers?.authorization?.split('Bearer ')[1];
+      try {
+        jwt.verify(token, process.env.JWT_SECRET);
+      } catch (error) {
+        return false;
+      }
     }
     return true;
   }

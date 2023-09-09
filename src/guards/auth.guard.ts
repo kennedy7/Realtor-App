@@ -6,7 +6,7 @@ import { Reflector } from '@nestjs/core';
 
 export class AuthGuard implements CanActivate {
   constructor(private readonly reflector: Reflector) {}
-  canActivate(context: ExecutionContext) {
+  async canActivate(context: ExecutionContext) {
     //Getting all the roles from the metadata and replacing the request role
     const roles = this.reflector.getAllAndOverride('roles', [
       context.getHandler(),
@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
       const request = context.switchToHttp().getRequest();
       const token = request.headers?.authorization?.split('Bearer ')[1];
       try {
-        jwt.verify(token, process.env.JWT_SECRET);
+        const user = await jwt.verify(token, process.env.JWT_SECRET);
       } catch (error) {
         return false;
       }

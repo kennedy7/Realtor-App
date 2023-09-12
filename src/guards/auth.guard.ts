@@ -1,11 +1,21 @@
-import { CanActivate, ExecutionContext } from '@nestjs/common';
-import * as jwt from 'jsonwebtoken';
-
 //allows us access metadata
 import { Reflector } from '@nestjs/core';
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import * as jwt from 'jsonwebtoken';
+import { PrismaService } from 'src/prisma/prisma.service';
 
+interface JWTPayload {
+  id: number;
+  name: string;
+  iat: number;
+  exp: number;
+}
+@Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private readonly reflector: Reflector) {}
+  constructor(
+    private readonly reflector: Reflector,
+    private readonly prismaService: PrismaService,
+  ) {}
   async canActivate(context: ExecutionContext) {
     //Getting all the roles from the metadata and replacing the request role
     const roles = this.reflector.getAllAndOverride('roles', [
@@ -16,8 +26,16 @@ export class AuthGuard implements CanActivate {
       const request = context.switchToHttp().getRequest();
       const token = request.headers?.authorization?.split('Bearer ')[1];
       try {
-        const user = await jwt.verify(token, process.env.JWT_SECRET);
-        console.log({ user });
+        const payload = (await jwt.verify(
+          token,
+          process.env.JWT_SECRET,
+        )) as JWTPayload;
+        const user = await this.prismaService.user.findUnique({
+          where: {
+            id: payload.id,
+          },
+        });
+
         return true;
       } catch (error) {
         return false;

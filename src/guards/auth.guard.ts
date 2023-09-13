@@ -26,10 +26,12 @@ export class AuthGuard implements CanActivate {
       const request = context.switchToHttp().getRequest();
       const token = request.headers?.authorization?.split('Bearer ')[1];
       try {
+        //extracting user details from token in headers
         const payload = (await jwt.verify(
           token,
           process.env.JWT_SECRET,
         )) as JWTPayload;
+        //using id from the token to get more details from the prisma DB
         const user = await this.prismaService.user.findUnique({
           where: {
             id: payload.id,

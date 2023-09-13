@@ -18,6 +18,7 @@ import { AuthGuard } from './guards/auth.guard';
       useClass: UserInterceptor,
     },
     {
+      //using the authGuard in every single request instead of using the decorator every time you create an endpoint
       provide: APP_GUARD,
       useClass: AuthGuard,
     },

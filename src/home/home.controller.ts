@@ -51,8 +51,8 @@ export class HomeController {
     return this.homeService.getHomeById(id);
   }
 
-  @Roles(userType.BUYER)
-  @UseGuards(AuthGuard)
+  @Roles(userType.REALTOR, userType.ADMIN)
+  // @UseGuards(AuthGuard)
   @Post()
   createHome(@Body() createHomeDto: CreateHomeDto, @GetUser() user: User) {
     // return this.homeService.createHome(createHomeDto, user.id);

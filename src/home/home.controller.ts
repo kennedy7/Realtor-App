@@ -85,8 +85,9 @@ export class HomeController {
     return this.homeService.deleteHomeById(id);
   }
 
-  @Get('/me')
-  async getMe(@GetUser() user: User) {
-    return user;
+  @Roles(userType.BUYER)
+  @Post('inquire/:id')
+  inquire(@Param('id', ParseIntPipe) homeId: number, @GetUser() user: User) {
+    return this.homeService.inquire();
   }
 }

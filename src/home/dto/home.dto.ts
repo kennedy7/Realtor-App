@@ -141,5 +141,5 @@ export class UpdateHomeDto {
 export class InquireDto {
   @IsString()
   @IsNotEmpty()
-  messages: string;
+  message: string;
 }

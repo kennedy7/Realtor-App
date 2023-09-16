@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { HomeService } from './home.service';
 import { ParseIntPipe } from '@nestjs/common/pipes';
-import { CreateHomeDto, HomeResponseDto } from './dto/home.dto';
+import { CreateHomeDto, HomeResponseDto, InquireDto } from './dto/home.dto';
 import { UpdateHomeDto } from './dto/home.dto';
 import { PropertyType, User, userType } from '@prisma/client';
 import { GetUser } from 'src/user/decorators/user.decorator';
@@ -87,7 +87,11 @@ export class HomeController {
 
   @Roles(userType.BUYER)
   @Post('inquire/:id')
-  inquire(@Param('id', ParseIntPipe) homeId: number, @GetUser() user: User) {
-    return this.homeService.inquire();
+  inquire(
+    @Param('id', ParseIntPipe) homeId: number,
+    @GetUser() user: User,
+    @Body() body: InquireDto,
+  ) {
+    return this.homeService.inquire(user, homeId);
   }
 }

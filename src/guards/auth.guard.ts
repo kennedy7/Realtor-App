@@ -38,6 +38,7 @@ export class AuthGuard implements CanActivate {
           },
         });
         if (!user) return false;
+        //checks if the usertype of the user in included in the @Roles decorator guard
         if (roles.includes(user.user_Type)) return true;
         return false;
       } catch (error) {

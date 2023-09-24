@@ -52,12 +52,14 @@ export class HomeController {
   }
 
   @Roles(userType.REALTOR, userType.ADMIN)
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   @Post()
   createHome(@Body() createHomeDto: CreateHomeDto, @GetUser() user: User) {
     return this.homeService.createHome(createHomeDto, user.id);
   }
 
+  @Roles(userType.BUYER)
+  @UseGuards(AuthGuard)
   @Patch(':id')
   async updateHomeById(
     @Param('id', ParseIntPipe) id: number,
@@ -90,8 +92,8 @@ export class HomeController {
   inquire(
     @Param('id', ParseIntPipe) homeId: number,
     @GetUser() user: User,
-    @Body() body: InquireDto,
+    @Body() { message }: InquireDto,
   ) {
-    return this.homeService.inquire(user, homeId);
+    return this.homeService.inquire(user, homeId, message);
   }
 }

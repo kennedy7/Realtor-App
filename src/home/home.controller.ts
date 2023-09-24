@@ -52,14 +52,12 @@ export class HomeController {
   }
 
   @Roles(userType.REALTOR, userType.ADMIN)
-  @UseGuards(AuthGuard)
   @Post()
   createHome(@Body() createHomeDto: CreateHomeDto, @GetUser() user: User) {
     return this.homeService.createHome(createHomeDto, user.id);
   }
 
   @Roles(userType.BUYER)
-  @UseGuards(AuthGuard)
   @Patch(':id')
   async updateHomeById(
     @Param('id', ParseIntPipe) id: number,

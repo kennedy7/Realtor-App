@@ -8,7 +8,6 @@ import {
   Param,
   Delete,
   Query,
-  UseGuards,
 } from '@nestjs/common';
 import { HomeService } from './home.service';
 import { ParseIntPipe } from '@nestjs/common/pipes';
@@ -16,7 +15,6 @@ import { CreateHomeDto, HomeResponseDto, InquireDto } from './dto/home.dto';
 import { UpdateHomeDto } from './dto/home.dto';
 import { PropertyType, User, userType } from '@prisma/client';
 import { GetUser } from 'src/user/decorators/user.decorator';
-// import { AuthGuard } from 'src/guards/auth.guard';
 import { Roles } from 'src/user/decorators/roles.decorators';
 
 @Controller('home')
